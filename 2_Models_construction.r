@@ -32,11 +32,6 @@ range_df <- as(range[[1]], "Spatial")
 range_df$dummy = name
 range_df@data
 names(range_df@data)[names(range_df@data)=="dummy"] <- "BINOMIAL"
-##### REMOVE THE SMALL POLYGONS #####
-range_df <- disaggregate(range_df)
-range_df$areakm2 <- area(range_df)
-max <- max(range_df$areakm2) / 2
-range_df <- drop_crumbs(range_df, threshold = max, drop_empty = TRUE)
 ##### SAVE THE RESULTS #####
 setwd("E:/7_Doctorado/Cap_1/3_Models/ahull")
 writeOGR(range_df, dsn = getwd(), layer = name, driver = "ESRI Shapefile")
