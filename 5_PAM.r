@@ -175,69 +175,6 @@ colnames(all_met_RS) <- c("Species", "Long_ahull",  "Lat_ahull", "RS_ahull", "Lo
 write.csv(all_met_RS, "all_met_RS", row.names = FALSE)
 ##### --------------------------------------------------------------------------------- #####
 #############################################################################################
-######## I NEED TO COMPARE THE PREDICTIONS BETWEEN METHODS (RANGE SIZE AND MIDPOINT) ######## 
-#############################################################################################
-##### RANGE SIZE VS RANGE ZISE FOR ALL METHODS #####
-all_met_RS$RS_ahull <- (all_met_RS$RS_ahull - min(all_met_RS$RS_ahull)) / (max(all_met_RS$RS_ahull) - min(all_met_RS$RS_ahull))
-all_met_RS$RS_chull <- (all_met_RS$RS_chull - min(all_met_RS$RS_chull)) / (max(all_met_RS$RS_chull) - min(all_met_RS$RS_chull))
-all_met_RS$RS_sdm <- (all_met_RS$RS_sdm - min(all_met_RS$RS_sdm)) / (max(all_met_RS$RS_sdm) - min(all_met_RS$RS_sdm))
-
-a_c_hull_rs <- ggplot(all_met_RS, aes(RS_ahull, RS_chull)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Range Size - Alpha Hull", y = "Range Size - Convex Hull") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("number of species = 103") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()  
-
-a_sdm_rs <- ggplot(all_met_RS, aes(RS_ahull, RS_sdm)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Range Size - Alpha Hull", y = "Range Size - SDM") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("number of species = 95") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()  
-
-c_sdm_rs <- ggplot(all_met_RS, aes(RS_chull, RS_sdm)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Range Size - Convex Hull", y = "Range Size - SDM") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("number of species = 95") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()
-##### MIDPOINTS VS MIDPOINTS FOR ALL METHODS #####
-all_met_RS$Lat_ahull <- (all_met_RS$Lat_ahull - min(all_met_RS$Lat_ahull)) / (max(all_met_RS$Lat_ahull) - min(all_met_RS$Lat_ahull))
-all_met_RS$Lat_chull <- (all_met_RS$Lat_chull - min(all_met_RS$Lat_chull)) / (max(all_met_RS$Lat_chull) - min(all_met_RS$Lat_chull))
-all_met_RS$Lat_sdm <- (all_met_RS$Lat_sdm - min(all_met_RS$Lat_sdm)) / (max(all_met_RS$Lat_sdm) - min(all_met_RS$Lat_sdm))
-
-a_c_hull_mp <- ggplot(all_met_RS, aes(Lat_ahull, Lat_chull)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Midpoints - Alpha Hull", y = "Midpoints - Convex Hull") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()  
-
-a_sdm_mp <- ggplot(all_met_RS, aes(Lat_ahull, Lat_sdm)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Midpoints - Alpha Hull", y = "Midpoints - SDM") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()  
-
-c_sdm_mp <- ggplot(all_met_RS, aes(Lat_chull, Lat_sdm)) +
-  geom_point(color = "black", shape = 16, size = 1.5, alpha = 0.6) + 
-  stat_cor(method="spearman", cor.coef.name ="rho", label.x.npc="left", label.y.npc="top") +
-  labs(x = "Midpoints - Convex Hull", y = "Midpoints - SDM") + 
-  geom_smooth(color="red", method ="lm", se = FALSE, size = 0.3) + 
-  ggtitle("") +  geom_abline(intercept = 0, slope = 1) +
-  theme_classic()
-ggarrange(a_c_hull_rs, a_sdm_rs, c_sdm_rs, a_c_hull_mp, a_sdm_mp, c_sdm_mp, ncol = 3, nrow = 2)
-setwd("G:/7_Doctorado/Cap_1/5_figures")
-ggsave("Fig_1.tiff", width = 10, height = 6, dpi = 1000) 
-##### --------------------------------------------------------------------------------- #####
-#############################################################################################
 ### THE NEXT ANALYSIS ARE PERFORMED ONLY WITH ALPHAHULL (METHOD WITH LESS OVERPREDICTION) ###
 #############################################################################################
 ##### --------------------------------------------------------------------------------- #####
@@ -330,25 +267,6 @@ write.csv(sp_vars_lea, "lea_data_specieslevel.csv", row.names = FALSE)
 ##### CALCULATES RANGE SIZE PER SITE (MEDIAN) #####
 RS_sites <- lets.maplizer(PAM_ahull, log(RS_ahull), rownames(RS_ahull), func = median, ras = TRUE) ## log 
 RS_matrix <- RS_sites$Matrix
-
-ap_df <- as.data.frame(ap)
-##### PLOT RASTER ######
-library(ggplot2)
-library(reshape2)
-library(tidyverse)
-world <- map_data("world")
-world
-
-ggplot(ap_df, aes(x, y, fill = layer)) +
-  geom_tile(colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) +
-  geom_map(
-    data = world, map = world,
-    aes(long, lat, map_id = region),
-    color = "black", fill = "lightgray", size = 0.1
-  )  + 
-  theme_bw()
-
 ##### ADD THE ENVIRONMENTAL VARIABLES TO THE PAM #####
 vars_PAM <- lets.addvar(PAM_ahull, stck_proj1, fun = median, onlyvar = FALSE)
 PAM_onlyvars <- vars_PAM[,106:110] ##### SELECT THE COLUMNS ONLY WITH ENVIRONMENTAL LAYERS #####
