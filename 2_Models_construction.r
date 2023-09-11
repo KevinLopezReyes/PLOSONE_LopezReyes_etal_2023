@@ -65,7 +65,6 @@ next}
 #############################################################################################
 ######################### CREATE THE ECOLOGICAL NICHE MODELING ##############################
 #############################################################################################
-##### WE ARE GONNA USE THE DATA CREATED IN THE "SCRIPT_1" #####
 ##### SET THW WORKING DIRECTORY AND THE NAMES OF THE OBJECTS AND PATHS THAT I NEED #####
 setwd("E:/7_Doctorado/Cap_1/7_anexos/kuenm/species")
 sps <- dir()
