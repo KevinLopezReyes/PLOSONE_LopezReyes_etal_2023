@@ -294,7 +294,6 @@ final_ols_null_sp_all <- as.data.frame(do.call(rbind, list_ols_sp_all))
 setwd("E:/7_Doctorado/Cap_1/4_data/Null_models")
 write.csv(final_ols_null_sp_all, "final_ols_null_sp_all.csv", row.names = FALSE)
 ##### --------------------------------------------------------------------------------- #####
-
 ########### TONINI ##############
 ###### CREATE A LIST CONTAINING ALL THE SIMULATIONS ########
 null_list_sp_ton <- list.files("E:/7_Doctorado/Cap_1/4_data/Null_models/species_level/Ton", 
@@ -348,7 +347,6 @@ for (i in 1:length(null_list_sp_ton)){
   
   list_ols_sp_ton[[i]] <- final_ols_df_sp_ton
 }
-
 
 final_ols_null_sp_ton <- as.data.frame(do.call(rbind, list_ols_sp_ton))
 setwd("E:/7_Doctorado/Cap_1/4_data/Null_models")
