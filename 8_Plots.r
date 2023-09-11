@@ -508,11 +508,9 @@ save.image("G:/7_Doctorado/Cap_1/7_Codes/Rdata/7_Plots.RData")
 ##### -------------------------------- SUPPLEMENTARY FIGURES -------------------------- #####
 #############################################################################################
 ##### --------------------------------------------------------------------------------- #####
-
 #############################################################################################
 ##################################### FIGURE S1 (COMPARATION) ###############################
 #############################################################################################
-
 load("G:/7_Doctorado/Cap_1/7_Codes/Rdata/5_PAM.RData")
 ##### RANGE SIZE VS RANGE ZISE FOR ALL METHODS #####
 a_c_hull_rs <- ggplot(all_met_RS, aes(RS_ahull, RS_chull)) +
@@ -574,9 +572,8 @@ setwd("G:/7_Doctorado/Cap_1/5_figures")
 ggsave("Fig_S1.tiff", width = 9, height = 6, dpi = 1000, bg = "white") 
 
 #############################################################################################
-############################ FIGURE S1 (NULL VS OBSERVED COEFFICIENTES ) ####################
+############################ FIGURE S2 (NULL VS OBSERVED COEFFICIENTES ) ####################
 #############################################################################################
-
 #############################################################################################
 #######################################  OLS - SPECIES ######################################  
 #############################################################################################
@@ -994,140 +991,9 @@ library(patchwork)
 setwd("G:/7_Doctorado/Cap_1/5_figures")
 ols_sp_null + ols_sites_null
 ggsave("Fig_S2.tiff", width = 12, height = 8, dpi = 1000, bg = "white")
+##### --------------------------------------------------------------------------------- #####
 #############################################################################################
-############### ---------------------- END OF THE CODE ---------------------- ###############  
+###################################### END OF THE CODE ######################################
 #############################################################################################
+##### --------------------------------------------------------------------------------- #####
 
-#############################################################################################
-######################################## FIGURE BACKUP (SLOPES) #############################
-#############################################################################################
-##### READ TE FILES ######
-slopes_sp <- read.csv("G:/7_Doctorado/Cap_1/4_data/slopes_species.csv")
-slopes_asem <- read.csv("G:/7_Doctorado/Cap_1/4_data/slopes_asem.csv")
-
-##### PLOT #######
-p1 <- ggplot(slopes_sp, aes(Slope, Hypothesis, color = Model)) +
-  geom_point(shape = 16, stroke = 0.5, size = 4, alpha = 1) + 
-  geom_vline(xintercept = 0, linetype = "dashed", color = "#ac2020", size = 0.6) +
-  xlab("Regression coefficient") + theme_bw()
-
-##### PLOT #######
-p2 <- ggplot(slopes_asem, aes(Slope, Hypothesis, color = Model)) +
-  geom_point(shape = 16, stroke = 0.5, size = 4, alpha = 1) + 
-  geom_vline(xintercept = 0, linetype = "dashed", color = "#ac2020", size = 0.6) +
-  xlab("Regression coefficient") + theme_bw()
-
-ggarrange(p1, p2, nrow = 1)
-
-setwd("G:/7_Doctorado/Cap_1/5_figures")
-#ggsave("SLOPES.tiff", width = 10, height = 5, dpi = 1000, bg = "white")
-
-#############################################################################################
-######################################## FIGURE BACKUP (MAPS) ###############################
-#############################################################################################
-library(raster)
-library(tidyverse)
-
-load("G:/7_Doctorado/Cap_1/7_Codes/Rdata/3_PAM_and_layers.RData")
-
-RS_raster <- RS_sites$Raster
-RS_points <- rasterToPoints(RS_raster)
-RS_pdf <- as.data.frame(RS_points)
-
-CEH_min_raster <- stck_proj1$CEH_min
-CEH_min_points <- rasterToPoints(CEH_min_raster)
-CEH_min_pdf <- as.data.frame(CEH_min_points)
-
-Elevation_raster <- stck_proj1$Elevation
-Elevation_points <- rasterToPoints(Elevation_raster)
-Elevation_pdf <- as.data.frame(Elevation_points)
-CCV_raster <- stck_proj1$CCV
-CCV_points <- rasterToPoints(CCV_raster)
-CCV_pdf <- as.data.frame(CCV_points)
-CVH_raster <- stck_proj1$CVH
-CVH_points <- rasterToPoints(CVH_raster)
-CVH_pdf <- as.data.frame(CVH_points)
-
-#### BASE MAP ######
-RS_plot <- ggplot() + 
-  geom_tile(data = RS_pdf, aes(x, y, fill = layer), colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) + theme_bw() + 
-  xlim(c(-1826591, 2002909)) + ylim (c(1019745, 5959245)) + labs(fill = "") +                                                           # Remove axis labels & ticks
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-
-CEH_plot <- ggplot() + 
-  geom_tile(data = CEH_min_pdf, aes(x, y, fill = CEH_min), colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) + theme_bw() + 
-  xlim(c(-1826591, 2002909)) + ylim (c(1019745, 5959245)) + labs(fill = "") +                                                           # Remove axis labels & ticks
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-
-Elevation_plot <- ggplot() + 
-  geom_tile(data = Elevation_pdf, aes(x, y, fill = Elevation), colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) + theme_bw() + 
-  xlim(c(-1826591, 2002909)) + ylim (c(1019745, 5959245)) + labs(fill = "") +                                                           # Remove axis labels & ticks
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-
-CCV_plot <- ggplot() + 
-  geom_tile(data = CCV_pdf, aes(x, y, fill = CCV), colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) + theme_bw() + 
-  xlim(c(-1826591, 2002909)) + ylim (c(1019745, 5959245)) + labs(fill = "") +                                                           # Remove axis labels & ticks
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-
-CVH_plot <- ggplot() + 
-  geom_tile(data = CVH_pdf, aes(x, y, fill = CVH), colour="black") +
-  scale_fill_gradientn(colours = hcl.colors(3, palette = "Fall", 0.8)) + theme_bw() + 
-  xlim(c(-1826591, 2002909)) + ylim (c(1019745, 5959245)) + labs(fill = "") +                                                           # Remove axis labels & ticks
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank())
-
-library(ggpubr)
-vars <- ggarrange(RS_plot, CEH_plot, Elevation_plot, CCV_plot, CVH_plot, ncol = 5, nrow = 1)
-library(patchwork)
-#RS_plot + vars
-vars
-setwd("G:/7_Doctorado/Cap_1/5_figures")
-#ggsave("MAPS.tiff", width = 14, height = 2, dpi = 1000, bg = "white")
