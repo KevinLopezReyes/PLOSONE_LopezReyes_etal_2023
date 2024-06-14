@@ -16,7 +16,7 @@ load("E:/7_Doctorado/Cap_1/7_Codes/Rdata/5_PAM.RData")
 rast_full <- PAM_ahull$Richness_Raster * 0 ##### PAM_ahull es mi objeto tipo matriz de presencia ausencia contenido en el RData #####
 
 ##### CROP THE RASTER TO THE EXTENT OF ANALYSIS (ALL THE POLYGONS MERGED) #####
-r_mask <- crop(rast_full, dist_ahull) ###### "dist_ahull" es un multipoligono que contiene el area de distribución de todas las 
+r_mask <- crop(rast_full, dist_ahull) ###### "dist_ahull" es un multipoligono que contiene las areas de distribución de todas las 
                                       ##### especies, el cuál cargamos con el RData ######
 r_mask <- mask(rast_full, dist_ahull)
 
